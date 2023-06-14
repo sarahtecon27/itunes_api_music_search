@@ -1,6 +1,7 @@
 package com.example.itunesapimusicsearch
 
 import android.annotation.SuppressLint
+import android.content.Intent
 import android.media.MediaPlayer
 import android.os.Bundle
 import android.view.MenuItem
@@ -36,18 +37,11 @@ class MusicDetailsActivity : AppCompatActivity() {
         artistTextView.text = item.artistName
         priceTextView.text = item.trackPrice.toString()
 
-        mediaPlayer = MediaPlayer()
-        mediaPlayer.setDataSource(item.previewUrl)
-        mediaPlayer.prepare()
 
         playButton.setOnClickListener {
-            if (mediaPlayer.isPlaying) {
-                mediaPlayer.pause()
-                playButton.text = "Play"
-            } else {
-                mediaPlayer.start()
-                playButton.text = "Pause"
-            }
+            val intent = Intent(this, PlayMusicActivity::class.java)
+            intent.putExtra("item", item)
+            startActivity(intent)
         }
     }
 
